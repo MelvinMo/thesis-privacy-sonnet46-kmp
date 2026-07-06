@@ -1,16 +1,16 @@
 # Sleep Tracker — Claude Sonnet 4.6 → Kotlin Multiplatform (KMP) Migration
 
-> **Thesis artifact 4 of 7.** This repository is one implementation from a McMaster University M.Sc. thesis studying whether AI coding agents can migrate a mobile health app across frameworks without degrading usability. See [Thesis citation](#thesis-citation) and [Related repositories](#related-repositories) below.
+> This is repo 4 of 7 from my M.Sc. thesis at McMaster University, *"Who Moved My Button?": A Usability Evaluation of LLM-Assisted Cross-Platform Migration*. I had two AI coding agents (Claude Sonnet 4.6 and GPT-5.5) each migrate a real mobile health app to three different frameworks, then evaluated all 7 resulting apps for usability. This repo is Claude Sonnet 4.6's rewrite in Kotlin Multiplatform — it turned out to be the best-performing migration of the six. The other six are linked below.
 
-Compose Multiplatform (Android + iOS) rewrite of the original React Native "Sleep Tracker" privacy-transparency app, produced by **Claude Sonnet 4.6** under a shared 15-rule migration prompt. It talks to the same Node.js/Express backend as the original app (see [thesis-privacy-baseline](https://github.com/MelvinMo/thesis-privacy-baseline)).
+Compose Multiplatform (Android) rewrite of the original React Native "Sleep Tracker" privacy-transparency app, produced by **Claude Sonnet 4.6** under a shared 15-rule migration prompt I wrote. It talks to the same Node.js/Express backend as the original app (see [thesis-privacy-baseline](https://github.com/MelvinMo/thesis-privacy-baseline)).
 
 **UI fidelity target:** pixel-for-pixel match to the React Native source — layouts, text, font sizes, colors, padding, icons, and navigation flows were all checked against the original.
 
 ---
 
-## Usability findings (from the thesis)
+## Usability findings (from my thesis)
 
-This migration was evaluated with Nielsen's ten usability heuristics across six standardized tasks by a single assessor (severity 0–4, lower is better). Full detail is in **Chapter 4** of the thesis (App 1).
+This migration was evaluated with Nielsen's ten usability heuristics across six standardized tasks by a single assessor (severity 0–4, lower is better). Full detail is in **Chapter 4** of my thesis (App 1).
 
 | Metric | Value |
 |---|---|
@@ -44,10 +44,8 @@ This is the only one of the six migrations that scored *better* than the origina
 | JDK | **Android Studio's bundled JBR (OpenJDK 21)** — do not use a system JDK | — |
 | Android SDK | API 35 (compile), API 26+ (run) | SDK Manager inside Android Studio |
 | Kotlin plugin | 2.1+ (bundled with Android Studio) | — |
-| Xcode 15+ | Mac only, for iOS target | Mac App Store |
 
-> **Android only:** Gradle handles everything — no separate SDK download needed beyond Android Studio.
-> **iOS:** Requires a Mac with Xcode.
+> Gradle handles everything — no separate SDK download needed beyond Android Studio.
 
 ---
 
@@ -159,19 +157,7 @@ Grant **Microphone**, **Body sensors / accelerometer**, and **Notifications** wh
 
 ---
 
-## 5. Run on iOS (Mac only)
-
-1. Ensure Xcode is installed.
-2. In Android Studio, select an iOS simulator target from the run configurations dropdown, then **Run**.
-
-Or build the framework manually:
-```bash
-./gradlew :composeApp:linkDebugFrameworkIosSimulatorArm64
-```
-
----
-
-## 6. Release build (Android APK / AAB)
+## 5. Release build (Android APK / AAB)
 
 ```bash
 ./gradlew.bat :composeApp:assembleRelease     # Signed APK
@@ -210,8 +196,7 @@ Tap any privacy icon to open the tooltip. Consent can be changed any time in **P
 │       │   │   ├── ui/components/transparency/
 │       │   │   └── viewmodel/
 │       │   └── di/                  # Koin dependency injection
-│       ├── androidMain/             # Android-specific: MainActivity, sensors, WorkManager
-│       └── iosMain/                 # iOS-specific: sensors, DataStore, crypto
+│       └── androidMain/             # Android-specific: MainActivity, sensors, WorkManager
 ├── gradle/wrapper/
 ├── build.gradle.kts
 ├── settings.gradle.kts
@@ -221,10 +206,10 @@ Tap any privacy icon to open the tooltip. Consent can be changed any time in **P
 
 ---
 
-## Known limitations (from the thesis)
+## Known limitations (from my thesis)
 
 - Time entry and sleep-note selection use native Material 3 components rather than exact baseline replicas — this is the source of the H3/H8 *improvement* over baseline, but is a deliberate interaction change worth noting for anyone comparing pixel-for-pixel fidelity.
-- See Chapter 4 of the thesis for the full task-by-task and heuristic-by-heuristic severity breakdown, including the two other Claude Sonnet 4.6 migrations (Flutter, MAUI).
+- See Chapter 4 of my thesis for the full task-by-task and heuristic-by-heuristic severity breakdown, including the two other Claude Sonnet 4.6 migrations (Flutter, MAUI).
 
 ---
 
@@ -234,9 +219,9 @@ This repository contains **no real credentials**. `.env.example` holds placehold
 
 ---
 
-## Thesis citation
+## Citing my thesis
 
-If you reference this artifact, please cite:
+If you're referencing this repo, here's the full citation:
 
 > Mokhtari, M. (2026). *"Who Moved My Button?": A Usability Evaluation of LLM-Assisted Cross-Platform Migration* [Master's thesis, McMaster University]. Department of Computing and Software. Supervisor: Richard F. Paige.
 
@@ -244,4 +229,4 @@ If you reference this artifact, please cite:
 
 ## License
 
-All rights reserved. This repository is published for academic review and reproducibility alongside the thesis above. No license is granted for reuse, modification, or redistribution without permission from the author.
+All rights reserved — this is my thesis work. I've published it publicly so it's easy to review and reproduce, but please reach out to me before reusing or redistributing any of it.
